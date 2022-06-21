@@ -1,0 +1,14 @@
+@import "./abstract/abstract";
+
+@import "./base/root";
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+p {
+    color: black;
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-main-background);
+    color: var(--color-main-text);
+}

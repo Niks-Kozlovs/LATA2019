@@ -1,0 +1,41 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+    stops: [Stop!] @all
+    stopTimes: [StopTimes!] @all
+    trips: [Trips!] @paginate(type: "paginator" model:"App\\Trips")
+    trip(id: ID @eq): Trips @find(model: "App\\Trips")
+}
+
+type TripsPaginator {
+    paginatorInfo: PaginatorInfo!
+    data: [Trips!]!
+}
+
+type Stop {
+    stop_lat: Float!
+    stop_lon: Float!
+    stop_name: String!
+    stop_url: String!
+}
+
+type StopTimes {
+    trip_id: String
+    arrival_time: String
+    departure_time: String
+    stops: [Stop!]!
+    stop_sequence: Int!
+    trip: Trips!
+}
+
+type Trips {
+    id: ID!
+    trip_headsign: String!
+    direction_id: Int
+    route: [StopTimes!]!
+    weight: Int!
+}
